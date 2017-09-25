@@ -4,14 +4,14 @@
 
 class Rule{
 
-    public:std::vector<I2membership*> r_input;
-    public:std::vector<I2membership*> r_output;
+    public:std::vector<IT2membership*> r_input;
+    public:std::vector<IT2membership*> r_output;
 
-    public:Rule(I2membership *ptr,...){
+    public:Rule(IT2membership *ptr,...){
         va_list lt;
         va_start(lt,ptr);
-        I2membership * aux;
-        for(aux = ptr; aux != NULL; aux = va_arg(lt,I2membership*)){
+        IT2membership * aux;
+        for(aux = ptr; aux != NULL; aux = va_arg(lt,IT2membership*)){
             if(aux->IO == INPUT){
                 r_input.push_back(aux);
             }

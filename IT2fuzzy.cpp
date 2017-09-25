@@ -1,19 +1,44 @@
-#include "Rules.cpp"
+#include "IO.cpp"
+#include<iostream>
+
+
 
 class IT2fuzzy{
-public:int qtdIN;
-public:int qtdOUT;
+public:int qtdPoints;
 Rules * ptr;
-public:double initial_value;
-public:double final_value;
+IT2inputs * inputs;
+IT2outputs * outputs;
 
 
-public:IT2fuzzy(Rules *pt,int in, int out,double init, double fin){
+
+public:IT2fuzzy(Rules *pt, IT2inputs * inp, IT2outputs * outs, int points){
     this->ptr = pt;
-    this->qtdIN = in;
-    this->qtdOUT = out;
-    this->initial_value = init;
-    this->final_value = fin;
+    this->qtdPoints = points;
+    this->inputs = inp;
+    this->outputs = outs;
+
+
 }
+
+public:void fuzzyfy(float val,...){
+
+std::vector<double> valores;
+va_list lt;
+va_start(lt,val);
+float aux = val;
+valores.push_back(aux);
+for(unsigned int i = 0 ; i < this->inputs->finputs.size()-1;i++){
+    aux = va_arg(lt,double);
+    valores.push_back(aux);
+}
+va_end(lt);
+for(unsigned int i = 0; i < this->inputs->finputs.size(); i++){
+    for(unsigned int j = 0; j < this->inputs->finputs[i]->memberships.size(); j++)
+    {
+        this->inputs->finputs[i]->memberships[j]->setIternalPertinence(valores[i]);
+    }
+}
+}
+
 
 };

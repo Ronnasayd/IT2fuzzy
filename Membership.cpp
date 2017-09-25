@@ -24,11 +24,11 @@ public:membership(double x1,double x2, double x3, double x4, double y1, double y
 public:double getPertinence(double x){
 double alpha;
 if(x < this->x1){
-    return this->x1;
+    return this->y1;
 }
 else{
     if(x >= this->x4){
-        return this->x4;
+        return this->y4;
     }
     else{
         if(x>=this->x1 && x<this->x2){
@@ -61,16 +61,14 @@ this->pert = this->getPertinence(x);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-class I2membership{
+class IT2membership{
     public:membership *lower;
     public:membership *upper;
-    public:int Id;
     public:int IO;
 
-public:I2membership(membership *low, membership *upp, int io, int id){
+public:IT2membership(membership *low, membership *upp, int io){
     this->lower = low;
     this->upper = upp;
-    this->Id = id;
     this->IO = io;
 }
 public:void setIternalPertinence(double x){

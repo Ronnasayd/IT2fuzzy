@@ -33,6 +33,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="IO.cpp" />
 		<Unit filename="IT2fuzzy" />
 		<Unit filename="IT2fuzzy.cpp" />
 		<Unit filename="Membership.cpp" />

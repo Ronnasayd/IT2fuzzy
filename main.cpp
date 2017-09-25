@@ -9,30 +9,49 @@ using namespace std;
 
 int main()
 {
-membership baixolowerI = membership(0.0,2.5,2.5,5.0,0.0,1.0,1.0,0.0);
-membership baixoupperI = membership(0.0,2.3,2.5,5.0,0.0,1.0,1.0,0.0);
-I2membership baixoI = I2membership(&baixolowerI,&baixoupperI,INPUT,1);
-
-membership baixolowerO = membership(0.0,2.5,2.5,5.0,0.0,1.0,1.0,0.0);
-membership baixoupperO = membership(0.0,2.3,2.5,5.0,0.0,1.0,1.0,0.0);
-I2membership baixoO = I2membership(&baixolowerO,&baixoupperO,OUTPUT,1);
 
 
-Rule r1 = Rule(&baixoI,&baixoO,NULL);
-Rule r2 = Rule(&baixoO,&baixoI,NULL);
+membership upperBI = membership(0,0,2,4,1,1,1,0);
+membership lowerBI = membership(0,0,0,2,1,1,1,0);
+IT2membership BaixaI = IT2membership(&upperBI,&lowerBI,INPUT);
+
+membership upperAI = membership(1,3,5,5,0,1,1,1);
+membership lowerAI = membership(3,5,5,5,0,1,1,1);
+IT2membership AltaI = IT2membership(&upperAI,&lowerAI,INPUT);
+
+membership upperBO = membership(0,0,2,4,1,1,1,0);
+membership lowerBO = membership(0,0,0,2,1,1,1,0);
+IT2membership BaixaO = IT2membership(&upperBO,&lowerBO,OUTPUT);
+
+membership upperAO = membership(1,3,5,5,0,1,1,1);
+membership lowerAO = membership(3,5,5,5,0,1,1,1);
+IT2membership AltaO = IT2membership(&upperAO,&lowerAO,OUTPUT);
+
+IT2output output = IT2output(0.0,5.0,&BaixaO,&AltaO,NULL);
+IT2outputs outputs = IT2outputs(&output,NULL);
+
+IT2input finput = IT2input(0.0,5.0,&BaixaI,&AltaI,NULL);
+IT2inputs inputs = IT2inputs(&finput,NULL);
+
+
+Rule r1 = Rule(&BaixaI,&AltaO,NULL);
+Rule r2 = Rule(&AltaI,&BaixaO,NULL);
+
 Rules rules = Rules(&r1,&r2,NULL);
-IT2fuzzy fuzzy = IT2fuzzy(&rules,1,1,0.0,1000.0);
 
-baixoI.setIternalPertinence(2.1);
-cout<<baixolowerI.pert<<endl;
-cout<<baixoI.lower->pert<<endl;
-cout<<r1.r_input[0]->lower->pert<<endl;
-cout<<rules.rules[0]->r_input[0]->lower->pert<<endl;
-cout<<fuzzy.ptr->rules[0]->r_input[0]->lower->pert<<endl;
+
+IT2fuzzy fuzzy = IT2fuzzy(&rules,&inputs,&outputs,1000);
+
+fuzzy.fuzzyfy(1.23);
+std::cout<<lowerBI.pert<<std::endl;
 
 
 
 
 
-    return 0;
+
+
+
+
+return 0;
 }
