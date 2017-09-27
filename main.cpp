@@ -36,11 +36,13 @@ int main()
 
     Rules rules = Rules(&r1, &r2, NULL);
 
-    IT2fuzzy fuzzy = IT2fuzzy(&rules, &inputs, &outputs, 123);
+    IT2fuzzy fuzzy = IT2fuzzy(&rules, &inputs, &outputs, 124);
 
     for (double val = 0.0; val < 6.0; val = val + 1.0) {
         fuzzy.fuzzyfy(val);
         double y = fuzzy.defuzzyfy(1);
+        std::cout<<fixed;
+        std::cout.precision(15);
         std::cout << fuzzy.yl[0] << " " << fuzzy.yr[0] << " " << y << std::endl;
     }
 
