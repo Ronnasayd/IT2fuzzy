@@ -4,21 +4,23 @@
 #define OUTPUT 2
 
 
+
 class membership{
 public:double x1,x2,x3,x4,y1,y2,y3,y4;
 public:double pert;
 std::vector <double> pertTrunc;
 
-public:membership(double x1,double x2, double x3, double x4, double y1, double y2, double y3, double y4){
-    this->x1 = x1;
-    this->x2 = x2;
-    this->x3 = x3;
-    this->x4 = x4;
-    this->y1 = y1;
-    this->y2 = y2;
-    this->y3 = y3;
-    this->y4 = y4;
- ;
+public:membership(double vx1,double vx2, double vx3, double vx4, double vy1, double vy2, double vy3, double vy4){
+    this->x1 = vx1;
+    this->x2 = vx2;
+    this->x3 = vx3;
+    this->x4 = vx4;
+    this->y1 = vy1;
+    this->y2 = vy2;
+    this->y3 = vy3;
+    this->y4 = vy4;
+    this->pert = -1.0;
+
 }
 
 public:double getPertinence(double x){
@@ -51,6 +53,44 @@ else{
 }
 
 return 0;
+}
+
+public:double getTruncPertinence(double x){
+double alpha;
+double val = 0.0;
+if(x < this->x1){
+    val =  this->y1;
+}
+else{
+    if(x >= this->x4){
+        val = this->y4;
+    }
+    else{
+        if(x>=this->x1 && x<this->x2){
+            alpha = (this->y2 - this->y1)/(this->x2 - this->x1);
+            val = alpha*(x - this->x1) + this->y1;
+        }
+        else{
+            if(x>=this->x2 && x<this->x3){
+                alpha = (this->y3 - this->y2)/(this->x3 - this->x2);
+                val =  alpha*(x - this->x2) + this->y2;
+            }
+            else{
+                if(x>=this->x3 && x<this->x4){
+                    alpha = (this->y4 - this->y3)/(this->x4 - this->x3);
+                    val =  alpha*(x - this->x3) + this->y3;
+                }
+            }
+        }
+    }
+}
+
+if(val < this->pert){
+    return val;
+}
+else{
+    return this->pert;
+}
 }
 
 public:void setInternalPertinence(double x){

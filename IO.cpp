@@ -8,6 +8,7 @@ class IT2output{
     public:double initial_value;
     public:double final_value;
 
+
     public:IT2output(double init, double fin,IT2membership *m,...){
         this->initial_value = init;
         this->final_value = fin;

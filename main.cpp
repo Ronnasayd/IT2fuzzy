@@ -7,8 +7,7 @@
 
 using namespace std;
 
-int main()
-{
+int main(){
 
 
 membership upperBI = membership(0,0,2,4,1,1,1,0);
@@ -42,8 +41,19 @@ Rules rules = Rules(&r1,&r2,NULL);
 
 IT2fuzzy fuzzy = IT2fuzzy(&rules,&inputs,&outputs,1000);
 
-fuzzy.fuzzyfy(1.23);
-std::cout<<lowerBI.pert<<std::endl;
+
+
+
+
+for(double val = 0.0; val < 6.0; val = val + 1.0){
+fuzzy.fuzzyfy(val);
+double y = fuzzy.defuzzyfy(1);
+std::cout << fixed;
+std:cout.precision(15);
+std::cout<<fuzzy.yl[0]<<" "<<fuzzy.yr[0]<<" "<<y<<std::endl;
+}
+
+
 
 
 
